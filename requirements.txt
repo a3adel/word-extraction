@@ -37,8 +37,7 @@ srsly==1.0.5
 thinc==7.4.5
 tokenizers==0.9.4
 torch==1.7.1
-torchaudio==0.7.2
-torchvision==0.8.2
+
 tqdm==4.56.0
 transformers==4.2.1
 typing-extensions==3.7.4.3
