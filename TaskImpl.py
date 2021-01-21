@@ -1,4 +1,4 @@
-from sent2vec.vectorizer import Vectorizer
+from sentence_transformers import SentenceTransformer
 from scipy import spatial
 from DataHelper import DataHelper
 import spacy
@@ -7,6 +7,12 @@ import json
 
 
 class TaskImpl:
+
+    def __init__(self):
+        self.helper = DataHelper()
+        self.loaded_spacy_key =None
+        self.loaded_spacy = None
+        self.model = SentenceTransformer('paraphrase-xlm-r-multilingual-v1')
     """
     this function is the entry point of the task and it takes the url and keywords as input and returns the 
     most important words as output by measuring the distance between the scentences 
@@ -28,8 +34,11 @@ class TaskImpl:
         website = helper.load_website(url)
         clean_body = helper.clean_data(website.text)
         lang = helper.detect_lang(clean_body)
-        nlp = self.get_spacy_model(lang)
-        doc = nlp(clean_body)
+        if self.loaded_spacy is None or self.loaded_spacy_key != lang:
+            self.loaded_spacy = self.get_spacy_model(lang)
+            self.loaded_spacy_key = lang
+
+        doc = self.loaded_spacy (clean_body)
         words = list(set(helper.clean_words(doc)))
         for i in range(len(keywords)):
             words.insert(i,keywords[i])
@@ -53,7 +62,7 @@ class TaskImpl:
     """
     def get_spacy_model(self,lang):
         try:
-            print(lang)
+  
             spacy_model = {"en":"en_core_web_sm","de":"de_core_news_sm","fr":"fr_core_news_sm"}
             nlp = spacy.load(spacy_model[lang])
             return nlp
@@ -70,11 +79,9 @@ class TaskImpl:
     
     """        
     def get_scent_vectors(self,words):
-        vectorizer = Vectorizer()
-        vectorizer.bert(words)
-        vectors_bert = vectorizer.vectors
+
        
-        return vectors_bert
+        return  self.model.encode(words)
     
     def get_nearest_words_indecies(self,keywords_length,vectors,number_of_nearest_words = 10):
         total_distances = []
