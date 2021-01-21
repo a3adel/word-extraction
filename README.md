@@ -51,8 +51,8 @@ body example
 And the API would return a ```JSON Array``` of the nearest words to the ```keywords```
 response example :-
 
-```[
-    "Universitäten",
+```python
+["Universitäten",
     "Leuchtkraft",
     "Wissenswerte",
     "Kulturinstituts",
@@ -61,8 +61,9 @@ response example :-
     "Fluchtursachen",
     "Kulturaustausch",
     "Spitzenforschung",
-    "Hochschulen"
-]```
+    "Hochschulen"]
+```
+
 
 ## Future work
 - Supporting more languages
