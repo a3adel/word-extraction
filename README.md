@@ -10,7 +10,7 @@ Word-extraction consists of 3 main components
   - [LangDetect](https://pypi.org/project/langdetect/): to identify the language of the website
   - requests:- for requesting the data of the website ``` but some SSL certifcates rejects the request and throws an excepetion```
 - ```TaskImpl```:- Which process the data from the website and applies further cleaning to it then it vectorizes the data using ```sent2vec``` and get the most similar words to the keywords by measuring the distances between keywords vectors and website vectors and it uses:-
-  - [Spacy](https://pypi.org/project/spacy/):- which helps further with cleaning the data from ```stop_words```,```emojies``` ...etc
+  - [Spacy](https://pypi.org/project/spacy/):- After loading the spacy model based on the detected language we use the mode to clean the data from ```stop_words```,```emojies``` ...etc
   - [Sent2Vec](https://pypi.org/project/sent2vec/) :- Which vectorizes the data using ```Bert``` and despite being time consuming but it has 2 important features
       - supportinig multiple languages
       - vectorizes the scentence based on the context not just the words (for example it would differenciate between money Bank and power bank )
@@ -64,3 +64,7 @@ response example :-
     "Hochschulen"
 ]```
 
+## Future work
+- Supporting more languages
+- Write unit tests for the functions
+- Overcome the SSL certifcate issue that happens with a lot of websites
